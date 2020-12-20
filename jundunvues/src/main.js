@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-// import router from './utils/routerInter'
+import router from './router'
 import axios from 'axios'
 import http from '../config/http.js'
 import myhttp from '../config/myhttp.js'
@@ -11,17 +11,15 @@ import Qs from 'qs'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-Vue.use(VCharts)
 Vue.use(ElementUI);
-Vue.use(Chat)
+
 // 加载为全局对象
 
 Vue.prototype.$Qs = Qs
 Vue.prototype.$http = http
 Vue.prototype.$myhttp = myhttp
 Vue.prototype.$axios = axios
-Vue.prototype.$echarts = echarts
-Vue.prototype.$websock = websock
+
 // 可以理解为控制的地方
 
 Vue.config.productionTip = false
