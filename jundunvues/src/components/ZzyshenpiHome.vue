@@ -62,8 +62,9 @@
     height: 150px;
     background-color: #EAF2FF;
     margin-top: 25px;
-    margin-left: 110px;
+    margin-left: 50px;
     float: left;
+    cursor:pointer;
   }
 
   .lett_img {
