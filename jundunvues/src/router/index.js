@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import login from '@/page/login'
 import home from '@/page/home'
-import yuangong from '@/components/yuangong'
 
+
+import achievementslc from '@/components/achievementslc'
 
 Vue.use(Router)
 
@@ -19,6 +19,11 @@ export default new Router({
       path: '/home',
       name: '/home',
       component: home
+    },
+    {
+      path: '/aclc',
+      name: 'achievementslc',
+      component: achievementslc
     }
   ]
 })
