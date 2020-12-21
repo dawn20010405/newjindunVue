@@ -43,7 +43,7 @@
             <template slot="title"><i class="el-icon-setting"></i>审批管理</template>
             <el-menu-item-group>
               <template slot="title">分组一</template>
-              <el-menu-item index="3-1">选项1</el-menu-item>
+              <el-menu-item index="3-1" to="/sphome">审批首页</el-menu-item>
               <el-menu-item index="3-2">选项2</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="分组2">
