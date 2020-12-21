@@ -16,6 +16,7 @@
       </el-form>
     </div>
   </template>
+  
     <script>
   export default {
     data() {
@@ -90,7 +91,7 @@
   };
   </script>
 
-  <style acoped>
+  <style scoped>
   .login-form {
     width: 350px;
     margin: 160px auto; /* 上下间距160px，左右自动居中*/
@@ -112,4 +113,4 @@
     color: #303133;
     text-align: center;
   }
-  </style> -->
+  </style> 
