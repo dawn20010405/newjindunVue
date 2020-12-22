@@ -39,12 +39,13 @@
             </el-submenu>
           </el-submenu>
           <!--审批管理-->
+
           <el-submenu index="3">
             <template slot="title"><i class="el-icon-setting"></i>审批管理</template>
             <el-menu-item-group>
               <template slot="title">分组一</template>
-              <el-menu-item index="3-1">选项1</el-menu-item>
-              <el-menu-item index="3-2">选项2</el-menu-item>
+              <el-menu-item index="3-1" @click="$router.push('dsp')">待审批</el-menu-item>
+              <el-menu-item index="3-2" @click="$router.push('sphome')">审批首页</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="分组2">
               <el-menu-item index="3-3">选项3</el-menu-item>
@@ -74,17 +75,14 @@
           <el-submenu index="5">
             <template slot="title"><i class="el-icon-setting"></i>项目管理</template>
             <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="5-1">选项1</el-menu-item>
-              <el-menu-item index="5-2">选项2</el-menu-item>
+
+              <router-link to="/lixiang"><el-menu-item index="5-1">立项单</el-menu-item></router-link>
+              <el-menu-item index="5-2">未结项目</el-menu-item>
+              <el-menu-item index="5-2">已结项目</el-menu-item>
+                <el-menu-item index="5-2">项目汇总</el-menu-item>
             </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="5-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="5-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="5-4-1">选项4-1</el-menu-item>
-            </el-submenu>
+
+
           </el-submenu>
           <!--绩效管理-->
           <el-submenu index="6">
@@ -156,7 +154,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .el-header {
     background-color: #81d8d0;
     color: #333;

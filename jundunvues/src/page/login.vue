@@ -3,7 +3,7 @@
       <el-form ref="form" :rules="rules" :model="form" label-width="80px" class="login-form">
         <h2 class="login-title">管理系统</h2>
         <br>
-        <el-form-item label="用户名" prop="username" style="margin-right: 30px;">
+        <el-form-item label="手机号" prop="username" style="margin-right: 30px;">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password" style="margin-right: 30px;">
@@ -50,14 +50,19 @@
         //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
         this.$myhttp.getObj(url, param, (pager) => {
           console.log("值",pager);
+
           if(pager!=null){
+            sessionStorage.setItem('user', JSON.stringify(pager));
                   this.$router.push({
           name: '/home',
         }, );
+
     this.$message({
                message: '登录成功！',
                type: 'success'
              });
+
+
           }else{
                this.$message({
                message: '账号或密码错误',
