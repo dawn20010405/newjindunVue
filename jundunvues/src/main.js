@@ -23,6 +23,17 @@ Vue.prototype.$myhttp = myhttp
 Vue.prototype.$axios = axios
 Vue.prototype.$echarts = echarts
 
+//qqc change by 2020/12/22  15:11:30
+import moment from 'moment'
+Vue.use(require('vue-moment'));
+Vue.prototype.moment = moment;
+Vue.filter('dateYMDHMSFormat2', function(dateStr, pattern = 'YYYY年MM月DD日 HH时mm分ss秒') {
+  if(!dateStr) return '';
+  return moment(dateStr).format(pattern);
+})
+// 全局导入过滤器
+import filter from './plugins/filter.js'
+Object.keys(filter).forEach(key => Vue.filter(key, filter[key]))
 // 可以理解为控制的地方
 
 Vue.config.productionTip = false
