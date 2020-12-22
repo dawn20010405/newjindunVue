@@ -1,18 +1,30 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import page from '@/components/page'
+import login from '@/page/login'
+import home from '@/page/home'
 import pxyemp from '@/components/PxyEmp'
+import achievementslc from '@/components/achievementslc'
 import ZzyshenpiHome from '@/components/ZzyshenpiHome'
+import Zzydshenpi from '@/components/Zzydshenpi'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/page',
-      name: 'page',
-      component: page
+      path: '/',
+      name: 'login',
+      component: login
+    },
+    {
+      path: '/home',
+      name: '/home',
+      component: home
+    },
+    {
+      path: '/aclc',
+      name: 'achievementslc',
+      component: achievementslc
     },
     {
       path: '/pxyemp',
@@ -23,7 +35,10 @@ export default new Router({
       path: '/sphome',
       name: 'ZzyshenpiHome',
       component: ZzyshenpiHome
+    },{
+      path: '/dsp',
+      name: 'Zzydshenpi',
+      component: Zzydshenpi
     },
-
   ]
 })
