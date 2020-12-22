@@ -387,32 +387,7 @@ export default {
     },
     //新增一条绩效表
     addac() {
-      if (this.chengji == true) {
-        this.gongkai2 = 0;
-      } else {
-        this.gongkai2 = 1;
-      }
-      let user = sessionStorage.getItem("user");
-      var jsonObj = JSON.parse(user);
-      this.$axios
-        .post("http://localhost:8089/aclc/addac/eid" + user, {
-          acname: this.input1,
-          acobjectives: this.input2,
-          actype: this.value,
-          acyear: this.acpanduan1value,
-          achalf: this.acpanduan2value,
-          starttime: this.acpanduan3value[0],
-          endtime: this.acpanduan3value[0],
-          acend: timevalue,
-          fachievement: this.gongkai2,
-          fanonymous: this.radio,
-          startup: 0,
-          feedbacklc: this.fankui2,
-          acother: "暂无",
-        })
-        .then((res) => {
-          console.log("我姓曾了", res);
-        });
+      
     },
     //查询公开的绩效表
     selectAc() {
@@ -483,7 +458,32 @@ export default {
         .catch((_) => {});
     },
     tijiao() {
-      console.log(this.radio);
+      if (this.chengji == true) {
+        this.gongkai2 = 0;
+      } else {
+        this.gongkai2 = 1;
+      }
+      let user = sessionStorage.getItem("user");
+      var jsonObj = JSON.parse(user);
+      this.$axios
+        .post("http://localhost:8089/aclc/addac/eid/" + jsonObj.eid, {
+          acname: this.input1,
+          acobjectives: this.input2,
+          actype: this.value,
+          acyear: this.acpanduan1value,
+          achalf: this.acpanduan2value,
+          starttime: this.acpanduan3value[0],
+          endtime: this.acpanduan3value[0],
+          acend: this.timevalue,
+          fachievement: this.gongkai2,
+          fanonymous: this.radio,
+          startup: 0,
+          feedbacklc: this.fankui2,
+          acother: "暂无",
+        })
+        .then((res) => {
+          console.log("我姓曾了", res);
+        });
     },
   },
   created() {
