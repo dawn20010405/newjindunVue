@@ -4,6 +4,7 @@ import login from '@/page/login'
 import home from '@/page/home'
 import pxyemp from '@/components/PxyEmp'
 import achievementslc from '@/components/achievementslc'
+import AssetsOverview from '@/components/AssetsOverview'
 
 Vue.use(Router)
 
@@ -17,7 +18,14 @@ export default new Router({
     {
       path: '/home',
       name: '/home',
-      component: home
+      component: home,
+      children:[
+        {
+          path: '/home/assetsoverview',
+          name: 'AssetsOverview',
+          component: AssetsOverview
+        },
+      ]
     },
     {
       path: '/aclc',
@@ -28,6 +36,7 @@ export default new Router({
       path: '/pxyemp',
       name: 'pxyemp',
       component: pxyemp
-    }
+    },
+    
   ]
 })
