@@ -1,5 +1,6 @@
 <template>
 <div>
+  <h3>员工信息</h3>
   <div class="mytable">
     <!--产品数据显示 -->
     <el-table :data="tableData" style="width: 100%; text-align:center;">
@@ -13,6 +14,11 @@
       <el-table-column label="姓名" prop="ename" > </el-table-column>
       <el-table-column label="入职日期" prop="erutime" > </el-table-column>
       <el-table-column label="联系电话" prop="eiphone" > </el-table-column>
+      <el-table-column label="在职岗位"  >
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.myposition.poname }}</span>
+        </template>
+      </el-table-column>
     </el-table>
 
   </div>
