@@ -8,6 +8,7 @@
           <el-input
             v-model="acnamevalue"
             placeholder="请输入活动名称"
+            @change="topchage()"
           ></el-input>
         </span>
       </div>
@@ -371,6 +372,19 @@ export default {
     };
   },
   methods: {
+    //like查询
+    topchage() {
+      this.$axios
+        .get(
+          "http://localhost:8089/aclc/likename?no=1&acname=" + this.acnamevalue
+        )
+        .then((v) => {
+          console.log("我是", v);
+          this.tableData = v.list;
+          this.pagesize = v.pagesize;
+          this.total = v.total;
+        });
+    },
     //新增一条绩效表
     addac() {
       if (this.chengji == true) {
@@ -413,13 +427,27 @@ export default {
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
-      this.$axios
-        .get("http://localhost:8089/aclc/pageac?no=" + val)
-        .then((res) => {
-          this.tableData = res.list;
-          this.pagesize = res.pagesize;
-          this.total = res.total;
-        });
+      if (this.acnamevalue != null) {
+        this.$axios
+          .get(
+            "http://localhost:8089/aclc/likename?no="+val+"&acname=" +
+              this.acnamevalue
+          )
+          .then((v) => {
+            console.log("我是", v);
+            this.tableData = v.list;
+            this.pagesize = v.pagesize;
+            this.total = v.total;
+          });
+      } else {
+        this.$axios
+          .get("http://localhost:8089/aclc/pageac?no=" + val)
+          .then((res) => {
+            this.tableData = res.list;
+            this.pagesize = res.pagesize;
+            this.total = res.total;
+          });
+      }
     },
     oo2() {
       if (this.huokuai == true) {
