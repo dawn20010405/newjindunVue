@@ -3,9 +3,6 @@ import Router from 'vue-router'
 import login from '@/page/login'
 import home from '@/page/home'
 import pxyemp from '@/components/PxyEmp'
-
-
-
 import achievementslc from '@/components/achievementslc'
 
 Vue.use(Router)
