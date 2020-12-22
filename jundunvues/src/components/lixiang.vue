@@ -50,21 +50,23 @@
             <el-col :span="12">
                 <div class="grid-content bg-purple">
                     <el-card shadow="hover" class="li">
-                        <!-- <div id="myChart4" style="border:1px solid red;height:500px"></div> -->
-                         <div class="HelloWorld echart-box" id="myChart4" style="hegith:500px"></div>
+                        <div id="myChart4" style="height:200px"></div>
                     </el-card>
                 </div>
             </el-col>
             <el-col :span="12">
                 <div class="grid-content bg-purple-light">
-                    <el-card shadow="hover" class="li">项目级别</el-card>
+                    <el-card shadow="hover" class="li">
+                        <div id="myChart5" style="height:200px">
+                            </div>
+                            </el-card>
                 </div>
             </el-col>
         </el-row>
         <br>
-        <br>
-        <br>
-
+         <br>
+          <br>
+          <el-button type="primary" plain>新增</el-button>
         <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="xid" label="项目编号" width="180"></el-table-column>
             <el-table-column prop="mytype.tname" label="项目类型"></el-table-column>
@@ -140,10 +142,17 @@ export default {
                 this.drawLine4();
             },
             deep: true
+        },
+          evel: {
+            handler: function() {
+                this.drawLine5();
+            },
+            deep: true
         }
     },
     mounted: function() {
         this.drawLine4();
+        this.drawLine5();
     },
 
     methods: {
@@ -153,7 +162,7 @@ export default {
             //2、构造图表数据
             let options = {
                 title: {
-                    // text: "项目类型",
+                    text: "项目类型",
                     left: 'center'
                 },
                 tooltip: {
@@ -169,9 +178,48 @@ export default {
                     {
                         name: '项目类型',
                         type: 'pie',
-                        radius: '30%',
-                        center: ['20%', '20%'],
+                        radius: '70%',
+                        center: ['50%', '50%'],
                         data: this.type,
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            // 3、绘制图表
+            myChart.setOption(options);
+        },
+
+            drawLine5() {
+            // 1、基于准备好的dom，初始化echarts实例
+            let myChart = this.$echarts.init(document.getElementById('myChart5'));
+            //2、构造图表数据
+            let options = {
+                title: {
+                    text: "项目级别",
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: this.evel.name
+                },
+                series: [
+                    {
+                        name: '项目级别',
+                        type: 'pie',
+                        radius: '70%',
+                        center: ['50%', '50%'],
+                        data: this.evel,
                         emphasis: {
                             itemStyle: {
                                 shadowBlur: 10,
@@ -204,9 +252,6 @@ export default {
             //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
             this.$myhttp.getObj(url, param, pager => {
                 console.log('根据项目状态统计的值', pager);
-                //   for(var i=0;i<pager.length;i++){
-                //   console.log('人数',pager[i].xid);
-                // }
                 for (let i = 0; i < pager.length; i++) {
                     console.log('人数', pager[i].xid);
                     if (pager[i].state == 0) {
@@ -247,8 +292,17 @@ export default {
             //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
             this.$myhttp.getObj(url, param, pager => {
                 console.log('根据项目级别统计饼图的值', pager);
+                  this.evel.length = 0; //清空数组
+                for (let i = 0; i < pager.data.length; i++) {
+                    var item = {
+                        value: pager.data[i],
+                        name: pager.name[i]
+                    };
+                    this.evel.push(item);
+                }
             });
         },
+        
 
         xiangmu() {
             let url = 'xm/all';
