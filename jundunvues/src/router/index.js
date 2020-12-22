@@ -5,6 +5,8 @@ import home from '@/page/home'
 import pxyemp from '@/components/PxyEmp'
 import lixiang from '@/components/lixiang'
 import achievementslc from '@/components/achievementslc'
+import ZzyshenpiHome from '@/components/ZzyshenpiHome'
+import Zzydshenpi from '@/components/Zzydshenpi'
 
 Vue.use(Router)
 
@@ -47,6 +49,15 @@ export default new Router({ /* 去掉地址上的#*/
           component: lixiang,
           meta:{requireAuth:true}
         },
+        {
+          path: '/sphome',
+          name: 'ZzyshenpiHome',
+          component: ZzyshenpiHome
+        },{
+          path: '/dsp',
+          name: 'Zzydshenpi',
+          component: Zzydshenpi
+        }
        
       ]
     }

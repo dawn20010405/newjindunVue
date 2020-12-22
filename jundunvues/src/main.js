@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import echarts from 'echarts'
 import http from '../config/http.js'
 import myhttp from '../config/myhttp.js'
 import Qs from 'qs'
@@ -13,12 +14,14 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(ElementUI);
 
+
 // 加载为全局对象
 
 Vue.prototype.$Qs = Qs
 Vue.prototype.$http = http
 Vue.prototype.$myhttp = myhttp
 Vue.prototype.$axios = axios
+Vue.prototype.$echarts = echarts
 
 // 可以理解为控制的地方
 

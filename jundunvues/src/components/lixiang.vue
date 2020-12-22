@@ -1,29 +1,47 @@
 <template>
     <div>
         <el-row>
-            <el-col :span="24">
-                <el-card shadow="hover" class="li">上面的正方形统计</el-card>
-            </el-col>
+            <!-- <el-col :span="24">
+                <el-card shadow="hover" class="li">
+                  <i class="el-icon-s-check" style="font-size: 30px;"></i><b>立单项</b>
+                  </el-card>
+            </el-col>-->
 
             <el-col :span="6">
                 <div class="grid-content bg-purple">
-                    <el-card shadow="hover" class="li">上面的正方形统计</el-card>
+                    <el-card shadow="hover" class="li">
+                        <b>待审批</b>
+                        <br />
+                        <span style="color:red">{{shenpi}}</span>
+                    </el-card>
                 </div>
             </el-col>
 
             <el-col :span="6">
                 <div class="grid-content bg-purple-light">
-                    <el-card shadow="hover" class="li">上面的正方形统计</el-card>
+                    <el-card shadow="hover" class="li">
+                        <b>已通过</b>
+                        <br />
+                        <span style="color:red">{{pass}}</span>
+                    </el-card>
                 </div>
             </el-col>
             <el-col :span="6">
                 <div class="grid-content bg-purple">
-                    <el-card shadow="hover" class="li">上面的正方形统计</el-card>
+                    <el-card shadow="hover" class="li">
+                        <b>已完成</b>
+                        <br />
+                        <span style="color:red">{{yes}}</span>
+                    </el-card>
                 </div>
             </el-col>
             <el-col :span="6">
                 <div class="grid-content bg-purple-light">
-                    <el-card shadow="hover" class="li">上面的正方形统计</el-card>
+                    <el-card shadow="hover" class="li">
+                        <b>已作废</b>
+                        <br />
+                        <span style="color:red">{{no}}</span>
+                    </el-card>
                 </div>
             </el-col>
         </el-row>
@@ -31,15 +49,21 @@
         <el-row>
             <el-col :span="12">
                 <div class="grid-content bg-purple">
-                    <el-card shadow="hover" class="li">下方的饼图正方形统计</el-card>
+                    <el-card shadow="hover" class="li">
+                        <!-- <div id="myChart4" style="border:1px solid red;height:500px"></div> -->
+                         <div class="HelloWorld echart-box" id="myChart4" style="hegith:500px"></div>
+                    </el-card>
                 </div>
             </el-col>
             <el-col :span="12">
                 <div class="grid-content bg-purple-light">
-                    <el-card shadow="hover" class="li">下方的饼图统计</el-card>
+                    <el-card shadow="hover" class="li">项目级别</el-card>
                 </div>
             </el-col>
         </el-row>
+        <br>
+        <br>
+        <br>
 
         <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="xid" label="项目编号" width="180"></el-table-column>
@@ -83,9 +107,14 @@ export default {
     data() {
         return {
             tableData: [],
-            zhuangtai:[],
-            type:[],
-            evel:[],
+
+            zhuangtai: [],
+            shenpi: 0,
+            pass: 0,
+            no: 0,
+            yes: 0,
+            type: [],
+            evel: [],
             current: 1,
             size: 2,
             total: 0,
@@ -105,11 +134,58 @@ export default {
             }
         };
     },
-    watch(){
-
+    watch: {
+        type: {
+            handler: function() {
+                this.drawLine4();
+            },
+            deep: true
+        }
+    },
+    mounted: function() {
+        this.drawLine4();
     },
 
     methods: {
+        drawLine4() {
+            // 1、基于准备好的dom，初始化echarts实例
+            let myChart = this.$echarts.init(document.getElementById('myChart4'));
+            //2、构造图表数据
+            let options = {
+                title: {
+                    // text: "项目类型",
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: this.type.name
+                },
+                series: [
+                    {
+                        name: '项目类型',
+                        type: 'pie',
+                        radius: '30%',
+                        center: ['20%', '20%'],
+                        data: this.type,
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            // 3、绘制图表
+            myChart.setOption(options);
+        },
+
         handleCurrentChange(c) {
             this.current = c;
             this.xiangmu();
@@ -121,15 +197,56 @@ export default {
             this.xiangmu();
         },
 
-         countxiangmu() {
+        countxiangmu() {
             let url = 'xm/counts';
             //2、参数
-            let param = {
-                
-            };
+            let param = {};
             //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
             this.$myhttp.getObj(url, param, pager => {
-                console.log('值', pager);
+                console.log('根据项目状态统计的值', pager);
+                //   for(var i=0;i<pager.length;i++){
+                //   console.log('人数',pager[i].xid);
+                // }
+                for (let i = 0; i < pager.length; i++) {
+                    console.log('人数', pager[i].xid);
+                    if (pager[i].state == 0) {
+                        this.shenpi = pager[i].xid;
+                    } else if (pager[i].state == 1) {
+                        this.pass = pager[i].xid;
+                    } else if (pager[i].state == 2) {
+                        this.no = pager[i].xid;
+                    } else if (pager[i].state == 3) {
+                        this.yes = pager[i].xid;
+                    }
+                }
+            });
+        },
+
+        countype() {
+            let url = 'xm/countype';
+            //2、参数
+            let param = {};
+            //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
+            this.$myhttp.getObj(url, param, pager => {
+                console.log('根据项目类型统计饼图的值', pager);
+                this.type.length = 0; //清空数组
+                for (let i = 0; i < pager.data.length; i++) {
+                    var item = {
+                        value: pager.data[i],
+                        name: pager.name[i]
+                    };
+                    this.type.push(item);
+                }
+            });
+        },
+
+        countevel() {
+            let url = 'xm/countevel';
+            //2、参数
+            let param = {};
+            //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
+            this.$myhttp.getObj(url, param, pager => {
+                console.log('根据项目级别统计饼图的值', pager);
             });
         },
 
@@ -145,9 +262,9 @@ export default {
                 console.log('值', pager);
                 this.total = pager.size;
                 this.tableData = pager.list;
-                let user = sessionStorage.getItem('user');
-                var jsonObj = JSON.parse(user);
-                console.log(jsonObj.eid);
+                // let user = sessionStorage.getItem('user');
+                // var jsonObj = JSON.parse(user);
+                // console.log(jsonObj.eid);
             });
         },
 
@@ -203,9 +320,11 @@ export default {
     created() {
         this.xiangmu();
         this.countxiangmu();
+        this.countype();
+        this.countevel();
     }
 };
-</script>
+</script >
 
   <style scoped>
 .li {
