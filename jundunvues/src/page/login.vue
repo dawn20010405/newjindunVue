@@ -50,18 +50,19 @@
         //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
         this.$myhttp.getObj(url, param, (pager) => {
           console.log("值",pager);
-          
+
           if(pager!=null){
             sessionStorage.setItem('user', JSON.stringify(pager));
                   this.$router.push({
           name: '/home',
         }, );
-        
+
     this.$message({
                message: '登录成功！',
                type: 'success'
              });
-             
+
+
           }else{
                this.$message({
                message: '账号或密码错误',

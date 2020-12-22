@@ -32,12 +32,12 @@ var vm = new Vue({
   components: {
     App
   },
-  
+
   template: '<App/>'
 })
 
 router.beforeEach((to, from, next) => {
-  
+
   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
     // let user = sessionStorage.getItem('user');
 		// 		var jsonObj = JSON.parse(user);
@@ -54,6 +54,7 @@ router.beforeEach((to, from, next) => {
     }
   }
   else {
+
     next();
   }
   /*如果本地 存在 token 则 不允许直接跳转到 登录页面*/
