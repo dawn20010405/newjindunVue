@@ -16,7 +16,7 @@
       </el-form>
     </div>
   </template>
-  
+
     <script>
   export default {
     data() {
@@ -66,7 +66,7 @@
              return false;
           }
         });
-        
+
       },
       submitForm() {
         if(this.form.username==null || this.form.username==''){
@@ -113,4 +113,4 @@
     color: #303133;
     text-align: center;
   }
-  </style> 
+  </style>
