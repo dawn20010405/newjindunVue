@@ -91,8 +91,10 @@
             <template slot="title"><i class="el-icon-setting"></i>绩效管理</template>
             <el-menu-item-group>
               <template slot="title">分组一</template>
-              <el-menu-item index="6-1">选项1</el-menu-item>
-              <el-menu-item index="6-2">选项2</el-menu-item>
+              <router-link to="/aclc">
+              <el-menu-item index="6-1">活动主页</el-menu-item>
+              </router-link>
+              <el-menu-item index="6-2">我的成绩</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="分组2">
               <el-menu-item index="6-3">选项3</el-menu-item>

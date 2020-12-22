@@ -17,17 +17,19 @@ export default new Router({
     {
       path: '/home',
       name: '/home',
-      component: home
+      component: home,
+      children: [{
+        path: '/aclc',
+        name: 'achievementslc',
+        component: achievementslc,
+      },
+      {
+        path: '/pxyemp',
+        name: 'pxyemp',
+        component: pxyemp
+      }]
     },
-    {
-      path: '/aclc',
-      name: 'achievementslc',
-      component: achievementslc
-    },
-    {
-      path: '/pxyemp',
-      name: 'pxyemp',
-      component: pxyemp
-    }
+
+
   ]
 })
