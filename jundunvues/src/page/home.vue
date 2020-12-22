@@ -2,7 +2,7 @@
   <div>
     <el-container style="height: 700px; border: 1px solid #eee">
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="[]">
+        <el-menu :default-openeds="[]" :default-active="$route.path" router>
           <!--招聘管理-->
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-message"></i>招聘管理</template>
@@ -108,12 +108,12 @@
           <el-submenu index="7">
             <template slot="title"><i class="el-icon-setting"></i>物质管理</template>
             <el-menu-item-group>
-              <template slot="title">分组一</template>
+              <template slot="title">采购管理</template>
               <el-menu-item index="7-1">选项1</el-menu-item>
               <el-menu-item index="7-2">选项2</el-menu-item>
             </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="7-3">选项3</el-menu-item>
+            <el-menu-item-group title="资产管理">
+              <el-menu-item index="/home/assetsoverview" >资产列表</el-menu-item>
             </el-menu-item-group>
             <el-submenu index="7-4">
               <template slot="title">选项4</template>
@@ -133,7 +133,7 @@
           </el-dropdown>
         </el-header>
         <el-main>
-          <router-view></router-view>
+          <router-view/>
         </el-main>
       </el-container>
     </el-container>
