@@ -20,6 +20,11 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="block">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="current"
+                     :page-sizes="[5,10,12]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+    </div>
 
   </div>
 </div>
@@ -30,17 +35,38 @@
         name: "PxyEmp",
       data(){
        return{
-         tableData: []
+         tableData: [],
+         current: 1,
+         pageNo:1,
+         pageSize: 5,
+         total: 0,
        }
       },
       methods:{
+        handleSizeChange(val) {
+          this.pageSize = val;
+          console.log(`每页 ${val} 条`);
+          this.loadData() ;
+        },
+        handleCurrentChange(val) {
+          this.current = val;
+          console.log(`当前页: ${val}`);
+          this.loadData() ;
+        },
         loadData() {
-          this.$axios.post("http://localhost:8089/emp/listselectemp")
+          let param = {
+            no: this.current,
+            size: this.pageSize
+          };
+          console.log("1产品分页查询：", param)
+          let ppp = this.$qs.stringify(param);
+          this.$axios.post("http://localhost:8089/emp/listselectemp",ppp)
             .then(r => {
               console.log("this.tableData:",r.data)
               if (r.status === 200) {
                 this.tableData = r.data;
-                console.log("this.tableData:",r.data)
+                console.log("this.tableData:",r.data);
+                this.total = r.data.total;
               }
             })
         }
