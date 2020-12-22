@@ -33,6 +33,9 @@ axios.interceptors.request.use((config) => {
       config.headers={
       	'Content-Type': 'application/x-www-form-urlencoded'
       }
+      // if (localStorage.getItem('access_token')) {
+      //   config.headers.token = localStorage.getItem('access_token');
+      // }
     }
     return config;
 }, (error) => {
@@ -61,6 +64,13 @@ axios.interceptors.response.use((res)=>{
     }else if(res.status===500){
       Message.warning({message:message});
       return Promise.reject(new Error(message))
+    }else if(res.status===401){
+
+
+      this.$router.push({
+        name: '/login',
+      }, );
+     
     }else{
       Message.error({message:"网络错误。。。"});
       return Promise.reject(new Error("网络错误。。。"))

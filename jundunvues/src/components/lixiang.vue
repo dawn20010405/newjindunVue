@@ -1,19 +1,58 @@
 <template>
-    <div class="login-container">
-      <el-form ref="form" :rules="rules" :model="form" label-width="80px" class="login-form">
-        <h2 class="login-title">管理系统</h2>
-        <br>
-        <el-form-item label="手机号" prop="username" style="margin-right: 30px;">
-          <el-input v-model="form.username"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password" style="margin-right: 30px;">
-          <el-input v-model="form.password" show-password></el-input>
-        </el-form-item>
 
-        <el-form-item>
-          <el-button type="primary" @click="submitForm()" style="margin-left: 70px;">登录</el-button>
-        </el-form-item>
-      </el-form>
+    <div>
+     <el-row>
+  <el-col :span="24">
+      <div class="grid-content bg-purple-dark">
+ <el-col :span="24">
+    <el-card shadow="hover" class="li">
+        <i class="el-icon-edit-outline" style="font-size: 24px;"></i>
+     立项单
+    </el-card>
+  </el-col>
+      </div>
+      </el-col>
+</el-row>
+        <el-table
+    :data="tableData"
+    border
+    style="width: 100%">
+    <el-table-column
+      prop="xid"
+      label="项目编号"
+      width="180">
+    </el-table-column>
+       <el-table-column
+      prop="mytype.tname"
+      label="项目类型">
+    </el-table-column>
+    <el-table-column
+      prop="xname"
+      label="项目名称"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="myfzr.ename"
+      label="负责人">
+    </el-table-column>
+     <el-table-column
+      prop="start"
+      label="计划开始时间">
+    </el-table-column>
+     <el-table-column
+      prop="end"
+      label="计划结束时间">
+    </el-table-column>
+     <el-table-column
+      prop="evel"
+      label="级别">
+    </el-table-column>
+     <el-table-column
+      prop="cdate"
+      label="申请时间">
+    </el-table-column>
+  </el-table>
+   
     </div>
   </template>
 
@@ -21,6 +60,7 @@
   export default {
     data() {
       return {
+           tableData: [],
         form: {
           username: "",
           password: ""
@@ -39,6 +79,20 @@
     },
 
     methods: {
+
+        xiangmu(){
+            let url = "login/denglu";
+        //2、参数
+        let param = {
+          phone: this.form.username,
+          pass: this.form.password
+        }
+        //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
+        this.$myhttp.getObj(url, param, (pager) => {
+          console.log("值",pager);
+
+         }, );
+        },
       denglu() {
         //链接地址
         let url = "login/denglu";
@@ -96,25 +150,9 @@
   </script>
 
   <style scoped>
-  .login-form {
-    width: 350px;
-    margin: 160px auto; /* 上下间距160px，左右自动居中*/
-    background-color: rgb(255, 255, 255, 0.8); /* 透明背景色 */
-    padding: 30px;
-    border-radius: 20px; /* 圆角 */
-  }
+      .li{
+          text-align: center;
+          font-size: 23px;
+      }
 
-  /* 背景 */
-  .login-container {
-    position: absolute;
-    width: 100%;
-    height: 104%;
-    background: url("/static/img/login.jpg");
-  }
-
-  /* 标题 */
-  .login-title {
-    color: #303133;
-    text-align: center;
-  }
   </style>
