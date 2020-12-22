@@ -7,6 +7,8 @@ import lixiang from '@/components/lixiang'
 import achievementslc from '@/components/achievementslc'
 import ZzyshenpiHome from '@/components/ZzyshenpiHome'
 import Zzydshenpi from '@/components/Zzydshenpi'
+import AssetsOverview from '@/components/AssetsOverview'
+
 
 Vue.use(Router)
 
@@ -57,10 +59,28 @@ export default new Router({ /* 去掉地址上的#*/
           path: '/dsp',
           name: 'Zzydshenpi',
           component: Zzydshenpi
-        }
-       
+        },
+       {
+        path: '/aclc',
+        name: 'achievementslc',
+        component: achievementslc,
+      },
+      {
+        path: '/pxyemp',
+        name: 'pxyemp',
+        component: pxyemp
+      },
+     {
+          path: '/home/assetsoverview',
+          name: 'AssetsOverview',
+          component: AssetsOverview
+        },
       ]
+
+
     }
+
+
   ]
 })
 
