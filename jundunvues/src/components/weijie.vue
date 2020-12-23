@@ -114,14 +114,14 @@
             </el-col>
         </el-row>
 
-        <el-dialog title="项目立项" :visible.sync="seen" :fullscreen="true" style="text-align:center">
+        <el-dialog title :visible.sync="seen" :fullscreen="true" style="text-align:center">
             <el-tabs type="border-card">
                 <el-tab-pane label="综合信息">
                     <el-row>
                         <el-col :span="6">
                             <div class="grid-content bg-purple">
                                 <el-card shadow="hover">
-                                    <el-progress type="circle" :percentage="25"></el-progress>
+                                    <el-progress type="circle" :percentage="100"></el-progress>
                                     <br />项目进度
                                 </el-card>
                             </div>
@@ -129,7 +129,7 @@
                         <el-col :span="6">
                             <div class="grid-content bg-purple-light">
                                 <el-card shadow="hover">
-                                    <el-progress type="circle" :percentage="25"></el-progress>
+                                    <el-progress type="circle" :percentage="100"></el-progress>
                                     <br />自评进度
                                 </el-card>
                             </div>
@@ -143,6 +143,15 @@
                                         <el-table-column prop="btype" label="类型"></el-table-column>
                                         <el-table-column prop="level" label="等级"></el-table-column>
                                     </el-table>
+                                    <el-pagination
+                                        @size-change="handleSizeChange2"
+                                        @current-change="handleCurrentChange2"
+                                        :current-page="current2"
+                                        :page-sizes="[1, 2, 3, 4]"
+                                        :page-size="size2"
+                                        layout="total, sizes, prev, pager, next, jumper"
+                                        :total="total2"
+                                    ></el-pagination>
                                 </el-card>
                             </div>
                         </el-col>
@@ -239,6 +248,7 @@ export default {
     data() {
         return {
             man: null,
+            total2: 0,
             xtype: null,
             xevel: null,
             xzhuangtai: null,
@@ -538,7 +548,7 @@ export default {
         },
 
         handleCurrentChange(c) {
-            this.current = c;
+            this.current2 = c;
             this.xiangmu();
         },
         handleClick(tab, event) {
@@ -548,6 +558,12 @@ export default {
         handleSizeChange(size2) {
             this.size = size2;
             console.log(this.size); //每页下拉显示数据
+            this.xiangmu();
+        },
+
+        handleSizeChange2(size2) {
+            this.size2 = size2;
+            console.log(this.size2); //每页下拉显示数据
             this.xiangmu();
         },
 
