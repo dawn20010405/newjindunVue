@@ -5,6 +5,7 @@ import home from '@/page/home'
 import pxyemp from '@/components/PxyEmp'
 import achievementslc from '@/components/achievementslc'
 import AssetsOverview from '@/components/AssetsOverview'
+import BRAssetsOverview from '@/components/BRAssetsOverview'
 
 Vue.use(Router)
 
@@ -34,7 +35,12 @@ export default new Router({
           path: '/home/assetsoverview',
           name: 'AssetsOverview',
           component: AssetsOverview
-        },
+       },
+     {
+          path: '/home/brassetsoverview',
+          name: 'BRAssetsOverview',
+          component: BRAssetsOverview
+       },
   ]
     }
 

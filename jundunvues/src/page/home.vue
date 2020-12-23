@@ -116,8 +116,8 @@
               <el-menu-item index="/home/assetsoverview" >资产列表</el-menu-item>
             </el-menu-item-group>
             <el-submenu index="7-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="7-4-1">选项4-1</el-menu-item>
+              <template slot="title">领用归还记录</template>
+              <el-menu-item index="/home/brassetsoverview">领用归还记录</el-menu-item>
             </el-submenu>
           </el-submenu>
         </el-menu>
