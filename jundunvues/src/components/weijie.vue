@@ -7,7 +7,7 @@
                   </el-card>
             </el-col>-->
 
-            <el-col :span="6">
+            <!-- <el-col :span="6">
                 <div class="grid-content bg-purple">
                     <el-card shadow="hover" class="li">
                         <b>待审批</b>
@@ -15,18 +15,18 @@
                         <span style="color:red">{{shenpi}}</span>
                     </el-card>
                 </div>
-            </el-col>
+            </el-col>-->
 
-            <el-col :span="6">
+            <el-col :span="8">
                 <div class="grid-content bg-purple-light">
                     <el-card shadow="hover" class="li">
-                        <b>已通过</b>
+                        <b>进行中</b>
                         <br />
                         <span style="color:red">{{pass}}</span>
                     </el-card>
                 </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="8">
                 <div class="grid-content bg-purple">
                     <el-card shadow="hover" class="li">
                         <b>已完成</b>
@@ -35,7 +35,7 @@
                     </el-card>
                 </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="8">
                 <div class="grid-content bg-purple-light">
                     <el-card shadow="hover" class="li">
                         <b>已作废</b>
@@ -66,7 +66,7 @@
         <el-row>
             <el-col :span="4">
                 <div class="grid-content bg-purple">
-                    <el-select v-model="man" clearable placeholder="请选择申请人" @change="xiangmu()">
+                    <el-select v-model="man" clearable placeholder="请选择负责人" @change="xiangmu()">
                         <el-option v-for="e in ealls" :key="e.eid" :label="e.ename" :value="e.eid"></el-option>
                     </el-select>
                 </div>
@@ -114,125 +114,84 @@
             </el-col>
         </el-row>
 
-        <el-dialog title="项目立项" :visible.sync="seen">
-            <el-form :model="form2">
-                <el-row>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <el-form-item label="项目名称" :label-width="formLabelWidth">
-                                <el-input v-model="form2.name" autocomplete="off"></el-input>
-                            </el-form-item>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
-                            <el-form-item label="项目类型" :label-width="formLabelWidth">
-                                <el-select v-model="value" clearable placeholder="请选择项目类型">
-                                    <el-option
-                                        v-for="x in xmtypes"
-                                        :key="x.tid"
-                                        :label="x.tname"
-                                        :value="x.tid"
-                                    ></el-option>
-                                </el-select>
-                            </el-form-item>
-                        </div>
-                    </el-col>
-                </el-row>
-
-                <el-row>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <el-form-item label="负责人" :label-width="formLabelWidth">
-                                <el-input v-model="uname" autocomplete="off" :disabled="true"></el-input>
-                            </el-form-item>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
-                            <el-form-item label="所属部门" :label-width="formLabelWidth">
-                                <el-input v-model="dname" autocomplete="off" :disabled="true"></el-input>
-                            </el-form-item>
-                        </div>
-                    </el-col>
-                </el-row>
-
-                <el-row>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <el-form-item label="项目级别" :label-width="formLabelWidth">
-                                <el-select v-model="value2" clearable placeholder="请选择项目类型">
-                                    <el-option
-                                        v-for="j in jibie"
-                                        :key="j.value"
-                                        :label="j.name"
-                                        :value="j.value"
-                                    ></el-option>
-                                </el-select>
-                            </el-form-item>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
-                            <el-form-item label="计划工时" :label-width="formLabelWidth">
-                                <el-input v-model="time3" autocomplete="off" :disabled="true"></el-input>
-                            </el-form-item>
-                        </div>
-                    </el-col>
-                </el-row>
-
-                <el-row>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple">
-                            <el-form-item label="计划开始" :label-width="formLabelWidth">
-                                <el-date-picker
-                                    v-model="time1"
-                                    type="date"
-                                    value-format="yyyy-MM-dd"
-                                    placeholder="选择计划开始日期"
-                                    @change="kaishi()"
-                                ></el-date-picker>
-                            </el-form-item>
-                        </div>
-                    </el-col>
-                    <el-col :span="12">
-                        <div class="grid-content bg-purple-light">
-                            <el-form-item label="计划结束" :label-width="formLabelWidth">
-                                <el-date-picker
-                                    v-model="time2"
-                                    type="date"
-                                    value-format="yyyy-MM-dd"
-                                    placeholder="选择计划结束日期"
-                                    @change="jieshu()"
-                                ></el-date-picker>
-                            </el-form-item>
-                        </div>
-                    </el-col>
-                </el-row>
-
-                <el-form-item label="说明" :label-width="formLabelWidth">
-                    <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="textarea"></el-input>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="seen = false">取 消</el-button>
-                <el-button type="primary" @click="addxiangmu()">确 定</el-button>
-            </div>
+        <el-dialog title="项目立项" :visible.sync="seen" :fullscreen="true" style="text-align:center">
+            <el-tabs type="border-card">
+                <el-tab-pane label="综合信息">
+                    <el-row>
+                        <el-col :span="6">
+                            <div class="grid-content bg-purple">
+                                <el-card shadow="hover">
+                                    <el-progress type="circle" :percentage="25"></el-progress>
+                                    <br />项目进度
+                                </el-card>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="grid-content bg-purple-light">
+                                <el-card shadow="hover">
+                                    <el-progress type="circle" :percentage="25"></el-progress>
+                                    <br />自评进度
+                                </el-card>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div class="grid-content bg-purple">
+                                <el-card shadow="hover">
+                                    <h3>风险报告</h3>
+                                    <el-table :data="risk" border style="width: 100%">
+                                        <el-table-column prop="fname" label="风险名称" width="180"></el-table-column>
+                                        <el-table-column prop="btype" label="类型"></el-table-column>
+                                        <el-table-column prop="level" label="等级"></el-table-column>
+                                    </el-table>
+                                </el-card>
+                            </div>
+                        </el-col>
+                    </el-row>
+                </el-tab-pane>
+                <el-tab-pane label="人员信息">配置管理</el-tab-pane>
+                <el-tab-pane label="风险报告">角色管理</el-tab-pane>
+                <el-tab-pane label="项目进度">定时任务补偿</el-tab-pane>
+            </el-tabs>
         </el-dialog>
 
         <el-table :data="tableData" border style="width: 100%">
-            <el-table-column prop="xid" label="项目编号" width="180"></el-table-column>
             <el-table-column prop="mytype.tname" label="项目类型"></el-table-column>
             <el-table-column prop="xname" label="项目名称" width="180"></el-table-column>
             <el-table-column prop="myfzr.ename" label="负责人"></el-table-column>
-            <el-table-column prop="startime" label="计划开始时间"></el-table-column>
-            <el-table-column prop="endtime" label="计划结束时间"></el-table-column>
+            <!-- <el-table-column prop="startime" label="计划开始时间"></el-table-column>
+            <el-table-column prop="endtime" label="计划结束时间"></el-table-column>-->
+
+            <el-table-column prop="xid" label="项目进度" width="180">
+                <template slot-scope="scope">
+                    工期进度：
+                    <el-progress
+                        :text-inside="true"
+                        :stroke-width="26"
+                        :percentage="scope.row.jindu"
+                        style="color:black"
+                    ></el-progress>自评进度：
+                    <el-progress
+                        :text-inside="true"
+                        :stroke-width="24"
+                        :percentage="scope.row.ziping"
+                        status="success"
+                        style="color:black"
+                    ></el-progress>
+                </template>
+            </el-table-column>
             <el-table-column prop="state" label="状态">
                 <template slot-scope="scope">
-                    <el-tag type="warning" v-if="scope.row.state==0">待通过</el-tag>
-                    <el-tag type="success" v-if="scope.row.state==1">已通过</el-tag>
+                    <el-tag type="success" v-if="scope.row.state==1">进行中</el-tag>
                     <el-tag type="danger" v-if="scope.row.state==2">已作废</el-tag>
                     <el-tag type="success" v-if="scope.row.state==3">已完成</el-tag>
+                    <el-tag
+                        type="warning"
+                        v-if="(ceshi(scope.row.endtime)-ceshi(scope.row.startime))/3600/24<60"
+                    >快到期</el-tag>
+                    <el-tag
+                        type="warning"
+                        v-if="(ceshi(scope.row.endtime)-ceshi(scope.row.startime))/3600/24<=0"
+                    >已超时</el-tag>
                 </template>
             </el-table-column>
 
@@ -243,8 +202,25 @@
                     <el-tag type="info" v-if="scope.row.evel==3">一般紧急</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column prop="cdate" label="申请时间"></el-table-column>
+
+            <!-- :prop="ceshi(scope.row.endtime)-ceshi(scope.row.startime)" -->
+            <el-table-column label="剩余工时">
+                <template
+                    slot-scope="scope"
+                >{{(ceshi(scope.row.endtime)-ceshi(scope.row.startime))/3600/24}}天</template>
+            </el-table-column>
+
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button
+                        size="mini"
+                        @click="chakan(scope.row)"
+                        v-if="scope.row.state=1 || scope.row.state==2"
+                    >查看</el-button>
+                </template>
+            </el-table-column>
         </el-table>
+
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -327,6 +303,7 @@ export default {
             time2: null,
             time3: null,
             xmtypes: [],
+            risk: [],
             xmtypes2: [],
             seen: false,
             tableData: [],
@@ -335,12 +312,16 @@ export default {
             shenpi: 0,
             pass: 0,
             no: 0,
+            activeName: 'second',
             yes: 0,
             type: [],
             evel: [],
             current: 1,
             size: 4,
+            current2: 1,
+            size2: 4,
             total: 0,
+            xid: 0,
             form: {
                 username: '',
                 password: ''
@@ -377,6 +358,21 @@ export default {
     },
 
     methods: {
+        chakan(r) {
+            this.seen = true;
+            let url = 'xm/risk';
+            //2、参数
+            let param = {
+                xid: r.xid,
+                no: this.current2,
+                size: this.size2
+            };
+            //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
+            this.$myhttp.getObj(url, param, pager => {
+                this.risk = pager;
+            });
+        },
+
         eall() {
             let url = 'xm/eall';
             //2、参数
@@ -545,6 +541,9 @@ export default {
             this.current = c;
             this.xiangmu();
         },
+        handleClick(tab, event) {
+            console.log(tab, event);
+        },
 
         handleSizeChange(size2) {
             this.size = size2;
@@ -610,17 +609,6 @@ export default {
             });
         },
 
-        // xmtype() {
-        //     let url = 'xm/type';
-        //     //2、参数
-        //     let param = {};
-        //     //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
-        //     this.$myhttp.getObj(url, param, pager => {
-        //         this.xmtype = pager;
-        //         console.log('值', pager);
-        //     });
-        // },
-
         userdept() {
             let url = 'xm/userdept';
 
@@ -649,7 +637,7 @@ export default {
         },
 
         xiangmu() {
-            let url = 'xm/all';
+            let url = 'xm/all2';
             //2、参数
             let param = {
                 no: this.current,

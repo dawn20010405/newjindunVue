@@ -4,6 +4,7 @@ import login from '@/page/login'
 import home from '@/page/home'
 import pxyemp from '@/components/PxyEmp'
 import lixiang from '@/components/lixiang'
+import weijie from '@/components/weijie'
 import achievementslc from '@/components/achievementslc'
 import ZzyshenpiHome from '@/components/ZzyshenpiHome'
 import Zzydshenpi from '@/components/Zzydshenpi'
@@ -17,60 +18,67 @@ export default new Router({ /* 去掉地址上的#*/
   routes: [
     {
       path: "/",
-      name:'/login',
+      name: '/login',
       component: login
     },
     { /* /表示根路径。使用了组件HelloWorld*/
       path: '/home',
-      name:'/home',
-      meta:{requireAuth:true},
+      name: '/home',
+      meta: { requireAuth: true },
       component: home,
-      
+
       children: [
         {
           path: '/aclc',
           name: 'achievementslc',
           component: achievementslc,
-          meta:{requireAuth:true}
+          meta: { requireAuth: true }
         },
         {
           path: '/pxyemp',
           name: 'pxyemp',
           component: pxyemp,
-          meta:{requireAuth:true}
+          meta: { requireAuth: true }
         },
         {
           path: '/aclc',
           name: 'achievementslc',
           component: achievementslc,
-          meta:{requireAuth:true}
+          meta: { requireAuth: true }
+        },
+
+        {
+          path: '/weijie',
+          name: 'weijie',
+          component: weijie,
+          meta: { requireAuth: true }
         },
         {
           path: '/lixiang',
           name: 'lixiang',
           component: lixiang,
-          meta:{requireAuth:true}
+          meta: { requireAuth: true }
         },
         {
           path: '/sphome',
           name: 'ZzyshenpiHome',
           component: ZzyshenpiHome
-        },{
+        }, {
           path: '/dsp',
           name: 'Zzydshenpi',
           component: Zzydshenpi
         },
-       {
-        path: '/aclc',
-        name: 'achievementslc',
-        component: achievementslc,
-      },
-      {
-        path: '/pxyemp',
-        name: 'pxyemp',
-        component: pxyemp
-      },
-     {
+        {
+          path: '/aclc',
+          name: 'achievementslc',
+          component: achievementslc,
+        },
+        {
+          path: '/pxyemp',
+          name: 'pxyemp',
+          component: pxyemp
+        },
+        {
           path: '/home/assetsoverview',
           name: 'AssetsOverview',
           component: AssetsOverview
@@ -88,7 +96,7 @@ export default new Router({ /* 去掉地址上的#*/
 
 
 // export default new Router({
-  
+
 //   routes: [
 //     {
 //       path: '/',

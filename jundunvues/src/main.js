@@ -1,5 +1,4 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -27,8 +26,8 @@ Vue.prototype.$echarts = echarts
 import moment from 'moment'
 Vue.use(require('vue-moment'));
 Vue.prototype.moment = moment;
-Vue.filter('dateYMDHMSFormat2', function(dateStr, pattern = 'YYYY年MM月DD日 HH时mm分ss秒') {
-  if(!dateStr) return '';
+Vue.filter('dateYMDHMSFormat2', function (dateStr, pattern = 'YYYY年MM月DD日 HH时mm分ss秒') {
+  if (!dateStr) return '';
   return moment(dateStr).format(pattern);
 })
 // 全局导入过滤器
@@ -54,15 +53,15 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
     // let user = sessionStorage.getItem('user');
-		// 		var jsonObj = JSON.parse(user);
-    if(sessionStorage.getItem('user')){ //判断本地是否存在access_token
+    // 		var jsonObj = JSON.parse(user);
+    if (sessionStorage.getItem('user')) { //判断本地是否存在access_token
       next();
-    }else {
-     if(to.path === '/'){
+    } else {
+      if (to.path === '/') {
         next();
-      }else {
+      } else {
         next({
-          path:'/'
+          path: '/'
         })
       }
     }
@@ -72,12 +71,12 @@ router.beforeEach((to, from, next) => {
     next();
   }
   /*如果本地 存在 token 则 不允许直接跳转到 登录页面*/
-  if(to.fullPath == "/"){
-    if(sessionStorage.getItem('user')){
+  if (to.fullPath == "/") {
+    if (sessionStorage.getItem('user')) {
       next({
-        path:from.fullPath
+        path: from.fullPath
       });
-    }else {
+    } else {
       next();
     }
   }
