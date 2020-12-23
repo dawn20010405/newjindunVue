@@ -8,8 +8,8 @@ import achievementslc from '@/components/achievementslc'
 import ZzyshenpiHome from '@/components/ZzyshenpiHome'
 import Zzydshenpi from '@/components/Zzydshenpi'
 import AssetsOverview from '@/components/AssetsOverview'
-
-
+import assessment_team_lc from '@/components/assessment_team_lc'
+import atlc from '@/components/atlc'
 Vue.use(Router)
 
 
@@ -74,6 +74,16 @@ export default new Router({ /* 去掉地址上的#*/
           path: '/home/assetsoverview',
           name: 'AssetsOverview',
           component: AssetsOverview
+        },
+        {
+          path: '/atlc',
+          name: 'assessment_team_lc',
+          component: assessment_team_lc
+        },
+        {
+          path: '/atlc2',
+          name: 'atlc',
+          component: atlc
         },
       ]
 

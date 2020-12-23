@@ -62,8 +62,16 @@
             prop=""
             label="操作"
           >
-            <el-button type="primary">查看详情</el-button>
-
+            <template slot-scope="scope">
+              <el-button
+                type="primary"
+                @click="atlc(scope.row)"
+              >查看详情</el-button>
+              <el-button
+                type="primary"
+                @click="kaohe(scope.row)"
+              >新增被考核人</el-button>
+            </template>
           </el-table-column>
         </el-table>
         <div class="block">
@@ -232,7 +240,7 @@
             </div>
           </span>
         </div>
-        <div class="a">
+        <!-- <div class="a">
           <span>计划填报人/流程:</span>
           <span>
             <el-input
@@ -240,7 +248,7 @@
               placeholder="请输入内容"
             ></el-input>
           </span>
-        </div>
+        </div> -->
 
         <div class="a">
           <span>是否开启匿名:</span>
@@ -266,6 +274,28 @@
       </span>
     </el-dialog>
 
+    <el-dialog
+      title="选择考核人"
+      :visible.sync="dialogVisible2"
+      width="35%"
+      :before-close="handleClose"
+    >
+      <el-transfer
+        v-model="valueyou"
+        :data="data"
+        :titles="['未选择', '已选择']"
+      ></el-transfer>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button
+          type="primary"
+          @click="aaa()"
+        >确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -273,6 +303,10 @@
 export default {
   data() {
     return {
+      emp: [],
+      data: [],
+      valueyou: [],
+      dialogVisible2: false,
       acnamevalue: "",
       total: 0,
       pagesize: 0,
@@ -321,6 +355,7 @@ export default {
           label: "非周期性",
         },
       ],
+      acid: 0,
       acpanduan2options: [
         {
           value: "1",
@@ -372,29 +407,67 @@ export default {
     };
   },
   methods: {
-    //like查询
-    topchage() {
+    //新增一条绩效表
+    aaa() {
+      console.log(this.valueyou);
       this.$axios
-        .get(
-          "http://localhost:8089/aclc/likename?no=1&acname=" + this.acnamevalue
+        .post(
+          "http://localhost:8089/atlcontroller/addatlc/" + this.acid,
+          this.valueyou
         )
         .then((v) => {
-          console.log("我是", v);
-          this.tableData = v.list;
-          this.pagesize = v.pagesize;
-          this.total = v.total;
+         this.dialogVisible2=false;
+         this.acid=0;
+         this.valueyou=[];
+         this.selectAc();
         });
     },
-    //新增一条绩效表
-    addac() {
-      
+    //新增被考核人
+    kaohe(val) {
+      this.acid = val.acid;
+      this.dialogVisible2 = true;
     },
+    //跳转页面
+    atlc(val) {
+       this.$router.push({
+          name: 'atlc',
+          params: {
+           acid:val.acid,
+          },
+        });
+    },
+    //like查询
+    topchage() {
+      if (this.acnamevalue == "") {
+        this.$axios
+          .get("http://localhost:8089/aclc/pageac?no=1")
+          .then((res) => {
+            console.log("我是res", res);
+            this.tableData = res.list;
+            this.pagesize = res.pageSize;
+            this.total = res.total;
+          });
+      } else {
+        this.$axios
+          .get(
+            "http://localhost:8089/aclc/likename?no=1&acname=" +
+              this.acnamevalue
+          )
+          .then((v) => {
+            console.log("我是", v);
+            this.tableData = v.list;
+            this.pagesize = v.pageSize;
+            this.total = v.total;
+          });
+      }
+    },
+
     //查询公开的绩效表
     selectAc() {
       this.$axios.get("http://localhost:8089/aclc/pageac?no=1").then((res) => {
-        console.log(res);
+        console.log("我是res", res);
         this.tableData = res.list;
-        this.pagesize = res.pagesize;
+        this.pagesize = res.pageSize;
         this.total = res.total;
       });
     },
@@ -402,24 +475,27 @@ export default {
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
-      if (this.acnamevalue != null) {
+      if (this.acnamevalue != "") {
         this.$axios
           .get(
-            "http://localhost:8089/aclc/likename?no="+val+"&acname=" +
+            "http://localhost:8089/aclc/likename?no=" +
+              val +
+              "&acname=" +
               this.acnamevalue
           )
           .then((v) => {
             console.log("我是", v);
             this.tableData = v.list;
-            this.pagesize = v.pagesize;
+            this.pagesize = v.pageSize;
             this.total = v.total;
           });
       } else {
+        console.log("我进来了", val);
         this.$axios
           .get("http://localhost:8089/aclc/pageac?no=" + val)
           .then((res) => {
             this.tableData = res.list;
-            this.pagesize = res.pagesize;
+            this.pagesize = res.pageSize;
             this.total = res.total;
           });
       }
@@ -465,15 +541,16 @@ export default {
       }
       let user = sessionStorage.getItem("user");
       var jsonObj = JSON.parse(user);
+      console.log(jsonObj.eid);
       this.$axios
-        .post("http://localhost:8089/aclc/addac/eid/" + jsonObj.eid, {
+        .post("http://localhost:8089/aclc/addac/" + jsonObj.eid, {
           acname: this.input1,
           acobjectives: this.input2,
           actype: this.value,
           acyear: this.acpanduan1value,
           achalf: this.acpanduan2value,
           starttime: this.acpanduan3value[0],
-          endtime: this.acpanduan3value[0],
+          endtime: this.acpanduan3value[1],
           acend: this.timevalue,
           fachievement: this.gongkai2,
           fanonymous: this.radio,
@@ -482,12 +559,38 @@ export default {
           acother: "暂无",
         })
         .then((res) => {
-          console.log("我姓曾了", res);
+          this.dialogVisible = false;
+          this.input1="";
+          this.input1="";
+          this.acpanduan1value="";
+          this.acpanduan2value="";
+          this.timevalue="";
+          this.acpanduan3value="";
+          this.selectAc();
         });
     },
+    
+    //查询所有员工
+    chaxun() {
+      this.$axios.get("http://localhost:8089/aclc/empall").then((res) => {
+        this.emp = res;
+        var i = 0;
+        this.emp.forEach((aaa) => {
+          this.data.push({
+            key: aaa.eid,
+            label: aaa.ename,
+            eid: aaa.eid,
+            disabled: false,
+          });
+          i++;
+        });
+      });
+    },
   },
+
   created() {
     this.selectAc();
+    this.chaxun();
   },
 };
 </script>
