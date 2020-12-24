@@ -95,7 +95,8 @@
         <el-col :span="3">事由</el-col>
         <el-col :span="9">{{oneexchangeassets.exasreason}}</el-col>
       </el-row>
-      <el-table :data="oneexchangeassets.codes" border style="width: 100%;">
+      <!-- oneexchangeassets.codes -->
+      <el-table  border style="width: 100%;">
         <el-table-column prop="consumingdetailsid" label="序号" align="center" width="80px"></el-table-column>
         <el-table-column prop="codename" label="申请名称" align="center"></el-table-column>
         <el-table-column prop="codedept" label="申请部门" align="center"></el-table-column>
@@ -108,13 +109,13 @@
         </el-table-column>
         <el-table-column prop="codesquantity" label="数量" align="center"></el-table-column>
         <el-table-column prop="assets.assetsname" label="物品名称" align="center"></el-table-column>
-        
+
       </el-table>
       <el-button type=""></el-button>
     </el-dialog>
-    
+
     <el-dialog title="新增领用记录" :visible.sync="addnewExassetsVisible">
-      <el-form :model="addexassetsform" ref="addexassetsform" :>
+      <el-form  ref="addexassetsform" >
         <el-form-item prop="" label="名称" label-width=""></el-form-item>
         <el-form-item prop="" label="领用方式" label-width=""></el-form-item>
         <el-form-item prop="" label="领用原因" label-width=""></el-form-item>
@@ -140,7 +141,7 @@
         oneexchangeassets:{},
         //添加表单
         addexassetsform:{
-          
+
         },
         //查询组件
         form:{
