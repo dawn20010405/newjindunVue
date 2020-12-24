@@ -85,12 +85,13 @@
         </el-switch>
         <el-cascader
             :options="typeOptions"
-            :props="{ checkStrictly: true }"
+
             clearable
             v-if="connextvalue"
             v-model="type"
             :show-all-levels="false"
             @change="assetsTypeChange()"></el-cascader>
+            <!-- :props="{ checkStrictly: true }" -->
       </el-row>
       <!-- 新增物品信息-->
       <el-form :model="addassetsform" style="padding-top: 40px;" :rules="addassetsrules" ref="addassetsform">
@@ -282,7 +283,7 @@
           }else if(row.assetsgstatus == '已领用'){
             return 'warning';
           }
-        }
+        },
       }
     },
     methods:{
