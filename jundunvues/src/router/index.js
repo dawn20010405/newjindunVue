@@ -6,6 +6,7 @@ import pxyemp from '@/components/PxyEmp'
 import achievementslc from '@/components/achievementslc'
 import dept from '@/components/Dept_Psition.vue'
 import recru from '@/components/Recruitment.vue'
+import proce from '@/components/RecruProce.vue'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/recru',
       name: 'recru',
       component: recru
+    },
+    {
+      path: '/proce',
+      name: 'proce',
+      component: proce
     }
   ]
 })

@@ -1,12 +1,38 @@
 <template>
   <div id="dept_div">
-    <el-container>
-      <el-aside>
+    <div style="
+    background-color: dodgerblue;
+    line-height: 70px;
+    float: left;
+    width: 50%;"
+    @click="loadData">
+    <h2 style="margin-left: 25px;float: left;color: white;">部门：</h2>
+    <!-- 部门新增按钮-->
+    <p style="list-style: none;float:right;font-weight: bold;font-size: 26px;">
+      <i class="el-icon-plus"
+         style="color: lawngreen;"
+         @click="dialogVisible=true"></i>
+      </p>
+    </div>
+
+    <div style="
+    background-color: lawngreen;
+    line-height: 70px;
+    float: left;
+    width: 50%;"
+    @click="loadData2">
+    <h3 style="margin-left: 25px;float: left;color: white;">岗位：</h3>
+    <!-- 岗位新增按钮-->
+    <p style="list-style: none;float:right;color: dodgerblue;font-weight: bold;font-size: 26px;">
+      <i class="el-icon-plus"
+         style="color: royalblue;"
+         @click="dialogVisibles=true"></i>
+       </p>
+    </div>
+
+    <el-container style="width:100%;margin: 0px auto;">
+      <el-aside width="50%" style="color: dodgerblue;border-right: 1px solid dodgerblue;">
         <div class="dept_left_div">
-          <li style="list-style: none;">部门：</li>
-          <!-- 部门新增按钮-->
-          <p style="list-style: none;float:right"><i class="el-icon-plus" @click="dialogVisible=true"></i></p>
-          <li style="list-style: none;" @click="loadData">全部</li>
           <!-- 查询所有部门-->
           <ul v-for="(v,k) in dept">
             <li @click="findPosition(v)">{{v.dname}}</li>
@@ -28,13 +54,14 @@
           </span>
         </el-dialog>
       </el-aside>
-      <el-main>
-        <li style="list-style: none;">岗位：</li>
-        <p style="list-style: none;float:right"><i class="el-icon-plus" @click="dialogVisibles=true"></i></p>
+
+      <el-main width="50%"  style="color: lawngreen;border-left: 1px solid lawngreen;">
         <!-- 查询所有岗位或根据部门编号查询对应的岗位-->
-        <ul v-for="(v,k) in position">
-          <li>{{v.poname}}</li>
-        </ul>
+        <div class="dept_left_div">
+          <ul v-for="(v,k) in position">
+            <li>{{v.poname}}</li>
+          </ul>
+        </div>
         <!-- 岗位新增弹框-->
         <el-dialog
         title="岗位新增"
@@ -83,7 +110,7 @@
       }
     },
     methods:{
-      /* 查询所有*/
+      /* 查询所有部门*/
       loadData(){
         this.$axios.post("/dept/finall").then(r=>{
           this.dept=r.objs;
@@ -119,10 +146,12 @@
           }
         })
       },
+      /* 岗位新增*/
       addPosi(){
         this.$refs["posiForm"].validate((valid) => {
           if (valid) {
-            if(this.deptd.did==null|this.deptd.did==0){
+            console.log("Did：",this.deptd.did);
+            if(this.deptd.did==null|this.deptd.did==undefined){
               this.$message({
                 message:"请选择部门",
                 type:"warning"
@@ -153,4 +182,12 @@
 </script>
 
 <style>
+  .dept_left_div{
+    margin-left: 25px;
+    list-style: none;
+  }
+  .dept_left_div li{
+    /* margin-left: 20px; */
+    list-style: none;
+  }
 </style>
