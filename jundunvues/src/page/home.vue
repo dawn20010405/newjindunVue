@@ -9,17 +9,14 @@
                             <i class="el-icon-message"></i>招聘管理
                         </template>
                         <el-menu-item-group>
-                            <template slot="title">分组一</template>
-                            <el-menu-item index="1-1">选项1</el-menu-item>
-                            <el-menu-item index="1-2">选项2</el-menu-item>
+                            <!-- 部门-->
+                            <el-menu-item index="1-1">
+                                <router-link to="/dept">部门岗位管理</router-link>
+                            </el-menu-item>
+                            <router-link to="/recru">
+                                <el-menu-item index="1-2">招聘管理</el-menu-item>
+                            </router-link>
                         </el-menu-item-group>
-                        <el-menu-item-group title="分组2">
-                            <el-menu-item index="1-3">选项3</el-menu-item>
-                        </el-menu-item-group>
-                        <el-submenu index="1-4">
-                            <template slot="title">选项4</template>
-                            <el-menu-item index="1-4-1">选项4-1</el-menu-item>
-                        </el-submenu>
                     </el-submenu>
                     <!--人事管理-->
                     <el-submenu index="2">
@@ -59,24 +56,7 @@
                             <el-menu-item index="3-4-1">选项4-1</el-menu-item>
                         </el-submenu>
                     </el-submenu>
-                    <!--公告管理-->
-                    <el-submenu index="4">
-                        <template slot="title">
-                            <i class="el-icon-setting"></i>公告管理
-                        </template>
-                        <el-menu-item-group>
-                            <template slot="title">分组一</template>
-                            <el-menu-item index="4-1">选项1</el-menu-item>
-                            <el-menu-item index="4-2">选项2</el-menu-item>
-                        </el-menu-item-group>
-                        <el-menu-item-group title="分组2">
-                            <el-menu-item index="4-3">选项3</el-menu-item>
-                        </el-menu-item-group>
-                        <el-submenu index="4-4">
-                            <template slot="title">选项4</template>
-                            <el-menu-item index="4-4-1">选项4-1</el-menu-item>
-                        </el-submenu>
-                    </el-submenu>
+
                     <!--项目管理-->
                     <el-submenu index="5">
                         <template slot="title">
@@ -89,8 +69,10 @@
                             <router-link to="/weijie">
                                 <el-menu-item index="5-2">未结项目</el-menu-item>
                             </router-link>
-                            <el-menu-item index="5-2">已结项目</el-menu-item>
-                            <el-menu-item index="5-2">项目汇总</el-menu-item>
+                            <router-link to="/yijie">
+                                <el-menu-item index="5-2">项目汇总</el-menu-item>
+                            </router-link>
+                            <!-- <el-menu-item index="5-2">项目汇总</el-menu-item> -->
                         </el-menu-item-group>
                     </el-submenu>
                     <!--绩效管理-->
@@ -100,10 +82,12 @@
                         </template>
                         <el-menu-item-group>
                             <template slot="title">分组一</template>
-                            <router-link to="/aclc">
+                            <router-link to="/aclc">atlc
                                 <el-menu-item index="6-1">活动主页</el-menu-item>
                             </router-link>
+                             <router-link to="/atlc">
                             <el-menu-item index="6-2">我的成绩</el-menu-item>
+                             </router-link>
                         </el-menu-item-group>
                         <el-menu-item-group title="分组2">
                             <el-menu-item index="6-3">选项3</el-menu-item>
@@ -120,15 +104,15 @@
                         </template>
                         <el-menu-item-group>
                             <template slot="title">采购管理</template>
-                            <el-menu-item index="7-1">选项1</el-menu-item>
+                            <el-menu-item index="/home/purchaseoverview">采购申请管理</el-menu-item>
                             <el-menu-item index="7-2">选项2</el-menu-item>
                         </el-menu-item-group>
                         <el-menu-item-group title="资产管理">
                             <el-menu-item index="/home/assetsoverview">资产列表</el-menu-item>
                         </el-menu-item-group>
                         <el-submenu index="7-4">
-                            <template slot="title">选项4</template>
-                            <el-menu-item index="7-4-1">选项4-1</el-menu-item>
+                            <template slot="title">领用归还记录</template>
+                            <el-menu-item index="/home/brassetsoverview">领用归还记录</el-menu-item>
                         </el-submenu>
                     </el-submenu>
                 </el-menu>

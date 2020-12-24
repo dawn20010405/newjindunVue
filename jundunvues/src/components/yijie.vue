@@ -1007,7 +1007,7 @@ export default {
         },
 
         xiangmu() {
-            let url = 'xm/all2';
+            let url = 'xm/all';
             //2、参数
             let param = {
                 no: this.current,
