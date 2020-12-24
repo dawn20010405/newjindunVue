@@ -30,7 +30,7 @@
       <el-col :span="7">
         <div class="grid-content bg-purple-light">
           <el-card class="box-card22222">
-            <h2>总分：</h2>
+            <h2>考核组人员平均分</h2>
           </el-card>
         </div>
       </el-col>
@@ -184,10 +184,111 @@
       </el-row>
 
       <el-button
-        @click="addtow"
         type="primary"
+        @click="addcommit()"
       >确认评分</el-button>
       <el-button>返回</el-button>
+    </el-dialog>
+    <!-- 详情 -->
+    <el-dialog
+      title="绩效内容"
+      :visible.sync="dialogTableVisible2"
+      width="70"
+    >
+    <el-row style="margin-top:10px;">
+      <el-col :span="16">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card22222">
+            <!-- <h2>{{tableData[0].aclcone.acname}}</h2> -->
+          </el-card>
+        </div>
+      </el-col>
+      <el-col :span="4">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card22222">
+            <!-- <h2>{{tableData[0].aclcone.acname}}</h2> -->
+          </el-card>
+        </div>
+      </el-col>
+      <el-col :span="4">
+        <div class="grid-content bg-purple-light">
+          <el-card class="box-card22222">
+            <h2>总分：</h2>
+          </el-card>
+        </div>
+      </el-col>
+    </el-row>
+      <h2>定量指标：</h2>
+      <el-table :data="gitdata1">
+        <el-table-column
+          property=""
+          label="绩效项"
+          width="150"
+        ></el-table-column>
+        <el-table-column
+          property="type"
+          label="类型"
+          width="200"
+        ></el-table-column>
+        <el-table-column
+          property="name"
+          label="评分方式"
+        ></el-table-column>
+        <el-table-column
+          property="address"
+          label="权重"
+        ></el-table-column>
+        <el-table-column
+          property=""
+          label="打分"
+        >
+         
+        </el-table-column>
+
+      </el-table>
+      <h2>定性指标：</h2>
+      <el-table :data="gitdata2">
+        <el-table-column
+          property=""
+          label="绩效项"
+          width="150"
+        ></el-table-column>
+        <el-table-column
+          property="type"
+          label="类型"
+          width="200"
+        ></el-table-column>
+        <el-table-column
+          property="name"
+          label="评分方式"
+        ></el-table-column>
+        <el-table-column
+          property="address"
+          label="权重"
+        ></el-table-column>
+        <el-table-column
+          property=""
+          label="打分"
+        >
+          
+        </el-table-column>
+
+      </el-table>
+      <h2>评分意见：</h2>
+      <el-row style="margin-top:10px">
+        <el-col :span="24">
+          <div class="grid-content bg-purple-dark">
+            <el-input
+              type="textarea2"
+              :rows="2"
+              placeholder="请输入内容"
+              v-model="textarea"
+               :readonly="bj"
+            >
+            </el-input>
+          </div>
+        </el-col>
+      </el-row>
     </el-dialog>
   </div>
 </template>
@@ -196,28 +297,32 @@
 export default {
   data() {
     return {
+      gitdata1:[],
+      gitdata2:[],
+      bj:true,
       textarea: "",
+      textarea2:"",
       gridData: [
         {
           date: "月度绩效计划完成率",
           name: "直接打分",
           address: "25分",
           type: "定量",
-          inte: 0,
+          inte: 1,
         },
         {
           date: "月度工作量",
           name: "直接打分",
           address: "25分",
           type: "定量",
-          inte: 0,
+          inte: 1,
         },
         {
           date: "上级交办其他事项",
           name: "直接打分",
           address: "25分",
           type: "定量",
-          inte: 0,
+          inte: 1,
         },
       ],
       gridData2: [
@@ -226,21 +331,21 @@ export default {
           name: "直接打分",
           address: "5分",
           type: "定性",
-          inte: 0,
+          inte: 1,
         },
         {
           date: "团队协作性",
           name: "直接打分",
           address: "5分",
           type: "定性",
-          inte: 0,
+          inte: 1,
         },
         {
           date: "工作态度",
           name: "直接打分",
           address: "5分",
           type: "定性",
-          inte: 0,
+          inte: 1,
         },
       ],
       tableData: [],
@@ -251,8 +356,12 @@ export default {
       aa: "",
       hang: {},
       dialogTableVisible: false,
+       dialogTableVisible2: false,
       jishiqi: [],
       jishiqi2: [],
+      user: {},
+      num1: 0,
+      num2: 0,
     };
   },
   methods: {
@@ -295,10 +404,14 @@ export default {
     add(val) {
       console.log("我是这行的数据", val.atid);
       this.hang = val;
-      this.dialogTableVisible = true;
+      this.dialogTableVisible2 = true;
     },
     addtow(val) {
-      this.dialogTableVisible = true;
+       this.dialogTableVisible = true;
+      this.hang = val;
+   
+    },
+    addcommit() {
       this.jishiqi = [];
       this.jishiqi2 = [];
       this.gridData.forEach((g) => {
@@ -307,13 +420,61 @@ export default {
       this.gridData2.forEach((g) => {
         this.jishiqi2.push(g.inte);
       });
-      console.log(this.jishiqi);
-      console.log(this.jishiqi2);
-      
+      //统计分数
+      let totalSumAll = 0;
+      this.jishiqi.map((item) => {
+        totalSumAll += item;
+      });
+      console.log(totalSumAll);
+      //统计分数
+      let totalSumAll2 = 0;
+      this.jishiqi2.map((item) => {
+        totalSumAll2 += item;
+      });
+      console.log(totalSumAll2);
+      //总分
+      let zong = 0;
+      zong = totalSumAll2 + totalSumAll;
+      console.log("总分", zong);
+      //获取当前登录者
+      let user = sessionStorage.getItem("user");
+      var jsonObj = JSON.parse(user);
+
+      // //新增定量表
+      this.$axios
+        .post(
+          "http://localhost:8089/atlcontroller/addration/" + this.hang.atid,
+          this.jishiqi
+        )
+        .then((res) => {});
+      //新增定性表
+      this.$axios
+        .post(
+          "http://localhost:8089/atlcontroller/addqualitative/" +
+            this.hang.atid,
+          this.jishiqi2
+        )
+        .then((vv) => {});
+      // //修改总分
+      this.$axios
+        .get("http://localhost:8089/atlcontroller/updaatlc?scoreeid="+jsonObj.eid+"&acopinion="+this.textarea+"&actotal="+zong+"&atid="+ this.hang.atid, {
+        })
+        .then((vv1) => {});
+      this.dialogTableVisible = false;
+      this.textarea = "";
     },
   },
   created() {
     this.onetomanyac();
+  },
+  computed: {
+    totalSumAll() {
+      let totalSumAll = 0;
+      this.dataInfo.map((item) => {
+        totalSumAll += item.totalSum;
+      });
+      return totalSumAll;
+    },
   },
 };
 </script>
