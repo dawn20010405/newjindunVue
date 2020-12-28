@@ -1142,6 +1142,7 @@ export default {
                             type: 'success'
                         });
                         this.xiangmu();
+                        this.seen5=false;
                     } else {
                         this.$message({
                             message: '风险汇报失败',

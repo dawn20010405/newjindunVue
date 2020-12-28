@@ -191,36 +191,7 @@
                             <div class="grid-content bg-purple">
                                 <el-card shadow="hover">
                                     <h1>项目操作</h1>
-                                    <el-row>
-                                        <el-col :span="12">
-                                            <div class="grid-content bg-purple">
-                                                <el-button
-                                                    type="primary"
-                                                    @click="gengxin()"
-                                                    v-if="jindu<100"
-                                                >进度更新</el-button>
-                                                <el-button
-                                                    type="primary"
-                                                    @click="seen4=true"
-                                                    v-if="jindu<100"
-                                                >项目暂停</el-button>
-                                            </div>
-                                        </el-col>
-                                        <el-col :span="12">
-                                            <div class="grid-content bg-purple-light">
-                                                <el-button
-                                                    type="primary"
-                                                    @click="seen5=true"
-                                                    v-if="jindu<100"
-                                                >风险报告</el-button>
-                                                <el-button
-                                                    type="primary"
-                                                    @click="wancheng()"
-                                                    v-if="jindu==100"
-                                                >完成项目</el-button>
-                                            </div>
-                                        </el-col>
-                                    </el-row>
+                                  
                                 </el-card>
                                 <el-row>
                                     <el-col :span="24" style="margin-top: 20px;">
@@ -302,8 +273,8 @@
                 <el-tab-pane label="人员信息">
                     <div>
                         <!-- <el-transfer v-model="valueyou" :data="data"></el-transfer> -->
-                        <el-button type="primary" @click="addemp()" plain>添加人员</el-button>
-                        <el-button type="danger" @click="delectemp()" plain>移出人员</el-button>
+                        <!-- <el-button type="primary" @click="addemp()" plain>添加人员</el-button>
+                        <el-button type="danger" @click="delectemp()" plain>移出人员</el-button> -->
 
                         <el-table
                             ref="multipleTable"
@@ -424,13 +395,16 @@
             <!-- :prop="ceshi(scope.row.endtime)-ceshi(scope.row.startime)" -->
             <el-table-column label="剩余工时">
                 <template
-                    slot-scope="scope"
-                >{{(ceshi(scope.row.endtime)-ceshi(scope.row.startime))/3600/24}}天</template>
+                    slot-scope="scope" v-if="scope.row.state!=3"
+                    
+                >{{(ceshi(scope.row.endtime)-ceshi(scope.row.startime))/3600/24}}天
+                
+                </template>
             </el-table-column>
 
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button size="mini" @click="chakan(scope.row)" v-if="scope.row.state!=3">查看</el-button>
+                    <el-button size="mini" @click="chakan(scope.row)" >查看</el-button>
                 </template>
             </el-table-column>
         </el-table>

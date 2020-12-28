@@ -158,7 +158,7 @@
   }
 </script>
 
-<style>
+<style scoped="scoped">
   .el-header {
     background-color: #81d8d0;
     color: #333;

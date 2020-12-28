@@ -181,7 +181,7 @@
   }
 </script>
 
-<style>
+<style scoped="scoped">
   .dept_left_div{
     margin-left: 25px;
     list-style: none;

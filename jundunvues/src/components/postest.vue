@@ -3,8 +3,8 @@
     <div class="print ">
 <!-- createPdf
 generatorImage -->
-      <el-button type="primary" @click="createPdf" style="margin-left: 550px;margin-top: 70px;" round>确认签订合同</el-button>
-      <el-button type="primary" @click="no()" style="margin-left: 700px;margin-top: -50px;position: relative;top: -33px;"
+      <!-- <el-button type="primary" @click="createPdf" style="margin-left: 550px;margin-top: 70px;" v-if="false" round>确认签订合同</el-button> -->
+      <el-button type="primary" @click="no()" style="margin-left: 900px;margin-top:70px"
         round>返回上一页</el-button>
 
     </div>
@@ -259,7 +259,7 @@ generatorImage -->
           <br>
           <el-row :gutter="20">
             <el-col :offset="15">
-              <p><img src="static/img/trgs1.png"></p>
+              <!-- <p><img src="static/img/trgs1.png"></p> -->
             </el-col>
           </el-row>
         </div>
@@ -269,10 +269,11 @@ generatorImage -->
 
 </template>
 
-<script>
-  import html2canvas from 'html2canvas';
-  import JsPDF from 'jspdf'
-  import moment from 'moment'
+<script scoped="scoped">
+// import axios from 'axios'
+//   import html2canvas from 'html2canvas';
+//   import JsPDF from 'jspdf'
+//   import moment from 'moment'
   export default {
     data() {
       return {

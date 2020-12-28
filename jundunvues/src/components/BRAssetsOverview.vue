@@ -613,8 +613,7 @@
   }
 </script>
 
-<style>
-</style>
+
 <style scoped="scoped">
   #BRAssetsOverview{
     padding: 20px;

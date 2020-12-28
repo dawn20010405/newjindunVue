@@ -497,11 +497,13 @@ export default {
             zong +
             "&atid=" +
             this.hang.atid,
-          {}
         )
-        .then((vv1) => {});
+        .then((vv1) => {
+           this.onetomanyac();
+        });
       this.dialogTableVisible = false;
       this.textarea = "";
+     
     },
   },
   created() {

@@ -2,14 +2,14 @@
   <div>
     <!-- 头部盒子 -->
     <div class="top_box">
-      <div class="left_box" @click="$router.push('dsp')">
+      <div class="left_box">
         <div class="lett_img" style="background-image: url(../../static/img/文本.png);"></div>
         <div class="p_box">
           <p style="color: #E29C00;">{{dscount}}</p>
           <p style="color: #5E6C8A;">待审批</p>
         </div>
       </div>
-      <div class="left_box">
+      <div class="left_box"  @click="$router.push('dsp')">
         <div class="lett_img" style="background-image: url(../../static/img/通过.png);"></div>
         <div class="p_box">
           <p style="color: #E29C00;">{{yscount}}</p>
@@ -19,8 +19,8 @@
       <div class="left_box">
         <div class="lett_img" style="background-image: url(../../static/img/驳回.png);"></div>
         <div class="p_box">
-          <p style="color: #E29C00;">0</p>
-          <p style="color: #5E6C8A;">被删除</p>
+          <p style="color: #E29C00;">{{wtgcount}}</p>
+          <p style="color: #5E6C8A;">未通过</p>
         </div>
       </div>
     </div>
@@ -523,6 +523,7 @@ export default {
       activeName: "first",
       dscount:'',
       yscount:'',
+      wtgcount: '',
     };
   },
   methods: {
@@ -1051,6 +1052,13 @@ export default {
         this.yscount = r;
       })
     },
+        /**统计已删除 */
+    wtgcountt(){
+      this.$axios.put("http://localhost:8089/shenpi/wtgcoun")
+      .then((r)=>{
+        this.wtgcount = r;
+      })
+    },
 
     handleClick(tab, event) {
       console.log(tab, event);
@@ -1064,6 +1072,7 @@ export default {
     this.loadDatal();
     this.dscountt();
     this.yscountt();
+    this.wtgcountt();
   },
 };
 </script>

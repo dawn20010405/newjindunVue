@@ -106,6 +106,7 @@
           console.log(`当前页: ${val}`);
           this.loadData() ;
         },
+
         loadData() {
           console.log("eid:",this.formInline.eid)
           console.log("ename:",this.formInline.ename)
@@ -119,14 +120,16 @@
           };
           console.log("1员工分页查询：", param)
           let ppp = this.$Qs.stringify(param);
-          this.$axios.post("http://localhost:8089/emp/listselectemppage",ppp)
-            .then(r => {
-              if (r.status === 200) {
-                console.log("this.tableData:",r.data.list);
-                this.tableData = r.data.list;
-                this.total = r.data.total;
-              }
-            })
+            let url = 'emp/listselectemppage';
+            //2、参数
+            
+            //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
+            this.$myhttp.getObj(url, param, pager => {
+                console.log('根据项目状态统计的值', pager);
+            this.tableData = pager.list;
+            this.total = pager.total;
+            });
+     
        }
       }, mounted() {
         this.loadData();

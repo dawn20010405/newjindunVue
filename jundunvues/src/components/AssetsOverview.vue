@@ -339,6 +339,8 @@
             .then(r=>{
               if(r.code=1){
                  this.successopen("新增成功!");
+                  this.addassetsform=this.$options.data().addassetsform;
+          this.loadAll();
               }else{
                 this.erroropen("新增失败！");
               }
@@ -350,8 +352,7 @@
             this.erroropen("表单验证有误！请重新输入");
             return false;
           }
-          this.addassetsform=this.$options.data().addassetsform;
-          this.loadAll();
+         
         });
       },
 
@@ -394,8 +395,6 @@
   }
 </script>
 
-<style>
-</style>
 <style scoped="scoped">
   #assetsoverview{
   padding: 20px;

@@ -50,7 +50,7 @@
             <template slot-scope="scope">
               <span v-if="scope.row.actype==0">年度绩效规则</span>
               <span v-if="scope.row.actype==1">半年度绩效规则</span>
-              <span v-if="scope.row.actype==2">非周期性</span>
+              <span v-if="scope.row.actype==3">非周期性</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -70,6 +70,7 @@
               <el-button
                 type="primary"
                 @click="kaohe(scope.row)"
+              
               >新增被考核人</el-button>
             </template>
           </el-table-column>
@@ -586,6 +587,10 @@ export default {
         });
       });
     },
+    //判断按钮
+    panduan(){
+      
+    }
   },
 
   created() {

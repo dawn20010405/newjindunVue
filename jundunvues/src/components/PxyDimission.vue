@@ -229,14 +229,16 @@
           };
           console.log("调岗分页查询：", param)
           let ppp = this.$Qs.stringify(param);
-          this.$axios.post("http://localhost:8089/dimission/listselectdimission",ppp)
-            .then(r => {
-              if (r.status === 200) {
-                console.log("this.tableData:",r.data.list);
-                this.tableData = r.data.list;
-                this.total = r.data.total;
-              }
-            })
+            let url = 'dimission/listselectdimission';
+            //2、参数
+            
+            //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
+            this.$myhttp.getObj(url, param, pager => {
+                console.log('根据项目状态统计的值', pager);
+          this.tableData = pager.list;
+           this.total = pager.total;
+            });
+     
         },
         /*查看详情*/
         xiangqing(row){
@@ -248,13 +250,18 @@
         },
         /*新增弹窗按钮*/
         xinzeng(){
+          console.log('新增弹窗按钮');
           this.options.splice(0,this.options.length);
           this.drawer1 = true
-          this.$axios.post("http://localhost:8089/emp/listempselect2")
-            .then(r => {
-              if (r.status === 200) {
-                console.log("llll",r.data)
-                this.userlist = r.data;
+           let param = {
+         
+          };
+           let url = 'emp/listempselect2';
+            //2、参数
+            //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
+            this.$myhttp.getObj(url,param,pager => {
+                console.log('根据项目状态统计的值', pager);
+                this.userlist =pager;
                 this.userlist.forEach(v => {
                   var json = {
                     value: v.eid,
@@ -262,58 +269,61 @@
                   }
                   this.options.push(json);
                 })
-                console.log("options：", this.options)
-              }
             })
-          this.$axios.post("http://localhost:8089/dept/listDeptAllpxy")
-            .then(r => {
-              if (r.status === 200) {
-                console.log("222",r.data)
-                this.userlist1 = r.data;
-                this.userlist1.forEach(v => {
+
+            let param1 = {
+         
+          };
+           console.log('部门');
+           let url1 = 'dept/listDeptAllpxy';
+            //2、参数
+            //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
+            this.$myhttp.getObj(url1, param1, pager => {
+                console.log('根据项目状态统计的值', pager);
+            this.userlist1 = pager;
+             this.userlist1.forEach(v => {
                   var json = {
                     value: v.did,
                     label: v.dname
                   }
                   this.options1.push(json);
                 })
-                console.log("options：", this.options1)
-              }
             })
         },
         /*姓名选择器*/
         namebut(row){
-          console.log("点击了选择姓名:",row)
+           console.log("点击了选择姓名:",row)
           let param = {
             eid:row
           };
-          console.log("根据id查询部门：", param)
-          let ppp = this.$Qs.stringify(param);
-          this.$axios.post("http://localhost:8089/emp/listempselectByeid",ppp)
-            .then(r => {
-              if (r.status === 200) {
-                console.log("全部",r.data)
-                this.shiyong.poname=r.data.myposition.poname
-                this.shiyong.dname=r.data.myposition.dept.dname
-                this.shiyong.rutime=r.data.erutime
-              }
+           let url = 'emp/listempselectByeid';
+            //2、参数
+            
+            //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
+            this.$myhttp.getObj(url, param, pager => {
+                console.log('根据项目状态统计的值', pager);
+          
+            this.shiyong.poname= pager.myposition.poname
+                this.shiyong.dname =pager.myposition.dept.dname
+                this.shiyong.rutime= pager.erutime
+            
             })
         },
         /*部门选择器*/
         dnamebut(row){
           this.zhuan.poname='',
-            console.log("点击了选择部门:",row)
+          console.log("点击了选择部门:",row)
           let param = {
             did:row
           };
-          console.log("根据id查询岗位：", param)
-          let ppp = this.$Qs.stringify(param);
-          this.$axios.post("http://localhost:8089/posi/Positionselectbydid",ppp)
-            .then(r => {
-              if (r.status === 200) {
-                console.log("全部",r.data)
-                this.Positionlist = r.data;
-                this.optionsPosition.splice(0,this.optionsPosition.length);
+           let url = 'posi/Positionselectbydid';
+            //2、参数
+            
+            //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
+            this.$myhttp.getObj(url, param, pager => {
+                console.log('根据项目状态统计的值', pager);
+            this.Positionlist = pager;
+            this.optionsPosition.splice(0,this.optionsPosition.length);
                 this.Positionlist.forEach(v => {
                   var json = {
                     value: v.pid,
@@ -321,28 +331,25 @@
                   }
                   this.optionsPosition.push(json);
                 })
-                console.log("options：", this.optionsPosition)
-              }
             })
         },
         /*立刻提交*/
         Liketijiao(){
-          console.log("点击了立刻提交：",this.zhuan)
+            console.log("点击了立刻提交：",this.zhuan)
           console.log("value：",this.value)
           let param = {
-            eid:this.value,
+             eid:this.value,
             dimissiontime:this.zhuan.rutime,
             dzong:this.zhuan.jzong
           };
-          console.log("点击了立刻提交：", param)
-          let ppp = this.$Qs.stringify(param);
-          this.$axios.post("http://localhost:8089/dimission/Insertdimission",ppp)
-            .then(r => {
-              if (r.status === 200) {
-                console.log("全部",r.data)
-                this.drawer1 = false;
-                this.loadData();
-              }
+           let url = 'dimission/Insertdimission';
+            //2、参数
+            
+            //myhttp的封装结果getObj是返回单个的对象。最后接回调函数
+            this.$myhttp.getObj(url, param, pager => {
+                console.log('根据项目状态统计的值', pager);
+                 this.drawer1 = false;
+                   this.loadData();
             })
         }
       },mounted() {

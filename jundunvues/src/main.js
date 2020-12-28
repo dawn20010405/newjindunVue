@@ -6,6 +6,8 @@ import axios from 'axios'
 import echarts from 'echarts'
 import http from '../config/http.js'
 import myhttp from '../config/myhttp.js'
+import html2canvas from 'html2canvas'
+
 import Qs from 'qs'
 /* 3、全局导入element-ui */
 import ElementUI from 'element-ui';

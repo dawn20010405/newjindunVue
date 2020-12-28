@@ -127,7 +127,7 @@
       >
       <el-form :model="interViewForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="应聘人">
-          <el-input disabled v-model="rname"></el-input>
+          <el-input disabled v-model="resumes.rname"></el-input>
         </el-form-item>
         <el-form-item label="面试类型">
           <el-select class="wids" v-model="interViewForm.intype" filterable placeholder="请选择">
@@ -395,10 +395,10 @@
             <el-table-column
               label="操作">
               <template slot-scope="i">
-                  <el-button type="text" size="mini" @click="openTheDrawerz4(i.row)">办理入职</el-button>
-                  <el-button type="text" size="mini" @click="openTheDrawers1(i.row)">录用</el-button>
-                  <el-button type="text" size="mini" @click="openTheDrawers2(i.row)">弃用</el-button>
-                  <el-button type="text" size="mini" @click="openTheDrawers3(i.row)">查看结果</el-button>
+                  <el-button type="text" :disabled="a" size="mini" @click="openTheDrawerz4(i.row)">办理入职</el-button>
+                  <el-button type="text" :disabled="a" size="mini" @click="openTheDrawers1(i.row)">录用</el-button>
+                  <el-button type="text" :disabled="a" size="mini" @click="openTheDrawers2(i.row)">弃用</el-button>
+                  <el-button type="text" :disabled="a" size="mini" @click="openTheDrawers3(i.row)">查看结果</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -759,7 +759,7 @@
         this.incor=i;
         this.iresult=1;
       },
-      openTheDrawers2(r){
+      openTheDrawers2(i){
         this.dialogVisiblzz=true;
         this.incor=i;
         this.iresult=0;
@@ -785,19 +785,19 @@
         //判断是否输入面试类型
         if(this.interViewForm.intype==null | this.interViewForm.intype==""){
           this.$message({
-            message:"请输入人数",
+            message:"请选择面试类型",
             type:"warning"
           })
-        //判断选择会议时间
+        //判断选择面试时间
         }else if(this.interViewForm.intime==null | this.interViewForm.intime==""){
           this.$message({
-            message:"请选择会议时间",
+            message:"请选择面试时间",
             type:"warning"
           })
-        //判断选择会议地点
+        //判断选择面试地点
         }else if(this.interViewForm.inaddress==null | this.interViewForm.inaddress==""){
           this.$message({
-            message:"请选择会议地点",
+            message:"请选择面试地点",
             type:"warning"
           })
         }else{
@@ -826,7 +826,6 @@
         let p = this.$Qs.stringify(params);
         this.$axios.post("/intcord/insert",p).then(r=>{
           if(r.code==1){
-            this.getIntrecord();
           }
         })
       },
@@ -873,7 +872,7 @@
   }
 </script>
 
-<style>
+<style scoped="scoped">
   .tran{
     margin-top: 20px;
     /* margin-left: 20px; */

@@ -10,7 +10,14 @@ import achievementslc from '@/components/achievementslc'
 import sphome from '@/components/ZzyshenpiHome'
 import dept from '@/components/Dept_Psition.vue'
 import recru from '@/components/Recruitment.vue'
+import postest from '@/components/postest.vue'
+
 import proce from '@/components/RecruProce.vue'
+
+import Pxyjust from '@/components/Pxyjust'
+import PxyTransfer from '@/components/PxyTransfer'
+import PxyDimission from '@/components/PxyDimission'
+// import postest from '@/components/postest'
 
 import AssetsOverview from '@/components/AssetsOverview'
 
@@ -18,6 +25,8 @@ import BRAssetsOverview from '@/components/BRAssetsOverview'
 import PurchaseOverview from '@/components/PurchaseOverview'
 import assessment_team_lc from '@/components/assessment_team_lc'
 import atlc from '@/components/atlc'
+
+import Zzydshenpi from '@/components/Zzydshenpi'
 
 Vue.use(Router)
 
@@ -46,6 +55,12 @@ export default new Router({ /* 去掉地址上的#*/
           path: '/dept',
           name: 'dept',
           component: dept,
+          meta: { requireAuth: true }
+        },
+        {
+          path: '/postest',
+          name: 'postest',
+          component: postest,
           meta: { requireAuth: true }
         },
         {
@@ -87,7 +102,7 @@ export default new Router({ /* 去掉地址上的#*/
           meta: { requireAuth: true }
         },
         {
-          path: '/BRAssetsOverview',
+          path: '/home/BRAssetsOverview',
           name: 'BRAssetsOverview',
           component: BRAssetsOverview,
           meta: { requireAuth: true }
@@ -136,7 +151,32 @@ export default new Router({ /* 去掉地址上的#*/
           path: '/atlc2',
           name: 'atlc',
           component: atlc
-        }
+        },
+        {
+          path: '/Pxyjust',
+          name: 'Pxyjust',
+          component: Pxyjust
+        },
+        {
+          path: '/PxyTransfer',
+          name: 'PxyTransfer',
+          component: PxyTransfer
+        },
+        {
+          path: '/PxyDimission',
+          name: 'PxyDimission',
+          component: PxyDimission
+        },
+        // {
+        //   path: '/postest',
+        //   name: 'postest',
+        //   component: postest
+        // }
+        {
+          path: '/dsp',
+          name: 'Zzydshenpi',
+          component: Zzydshenpi
+        },
       ]
 
 
